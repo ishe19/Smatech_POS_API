@@ -26,10 +26,10 @@ FROM openjdk:17-jdk-slim
 
 # Copy the built JAR and dependencies to the final image
 COPY --from=build /usr/share/java/smatech-pos /usr/share/java/tech.ishe.smatech_pos
-COPY --from=build /target/smatech-pos-0.0.1-SNAPSHOT.jar /usr/share/java/tech.ishe.smatech_pos/smatech-pos.jar
+COPY --from=build /target/smatech_pos-0.0.1-SNAPSHOT.jar /usr/share/java/tech.ishe.smatech_pos/smatech_pos.jar
 
 # Expose the port the app runs on
 EXPOSE 9078
 
 # Define the entry point for the container
-ENTRYPOINT ["java", "-jar", "/usr/share/java/tech.ishe.smatech_pos/smatech-pos.jar"]
+ENTRYPOINT ["java", "-jar", "/usr/share/java/tech.ishe.smatech_pos/smatech_pos.jar"]
