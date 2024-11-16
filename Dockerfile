@@ -4,16 +4,11 @@ FROM ubuntu:20.04 AS build
 # Set non-interactive mode to avoid prompting for input during apt-get installs
 ARG DEBIAN_FRONTEND=noninteractive
 
-# Update package lists and install prerequisites for adding repositories
-RUN apt-get update && \
-    apt-get install -y wget software-properties-common
+# Update package lists and install prerequisites
+RUN apt-get update
 
-# Add the PPA repository for OpenJDK 19
-RUN add-apt-repository ppa:openjdk-r/ppa && \
-    apt-get update
-
-# Install OpenJDK 19
-RUN apt-get install -y openjdk-19-jdk
+# Install OpenJDK 17 from the default Ubuntu repositories
+RUN apt-get install openjdk-17-jdk -y
 
 # Copy the application files and install dependencies
 COPY . .
@@ -26,7 +21,7 @@ RUN mvn package
 RUN mvn dependency:copy-dependencies -DoutputDirectory=/usr/share/java/smatech-pos
 
 # Start a new image with a smaller openjdk image
-FROM openjdk:19-jdk-slim
+FROM openjdk:17-jdk-slim
 
 # Copy dependencies and the built jar to the final image
 COPY --from=build /usr/share/java/smatech-pos /usr/share/java/tech.ishe.smatech_pos
