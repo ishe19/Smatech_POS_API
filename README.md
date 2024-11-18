@@ -74,6 +74,7 @@ spring.jpa.hibernate.ddl-auto=update
 |--------|------------------------|---------------------------|
 | GET    | `/smatech_api/products`       | Retrieve all products     |
 | POST   | `/smatech_api/products`       | Add a new product         |
+| GET    | `/smatech_api/products/{productSku}/image` | Get Product Image |
 
 
 ### Orders
